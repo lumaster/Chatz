@@ -32,9 +32,9 @@ spring:
         serialization.indent_output: true
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:postgresql://localhost:5432/Chatz
-        username: Chatz
-        password:
+        url: jdbc:postgresql://159.65.134.12:5432/chatz
+        username: chaow
+        password: S3crEtC0de
     jpa:
         database-platform: io.github.jhipster.domain.util.FixedPostgreSQL82Dialect
         database: POSTGRESQL

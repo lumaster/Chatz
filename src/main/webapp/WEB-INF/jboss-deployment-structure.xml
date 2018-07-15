@@ -1,0 +1,15 @@
+<jboss-deployment-structure>
+    <deployment name="shopchat.war">
+        <exclusions>
+            <module name="org.apache.commons.logging"/>
+            <module name="org.slf4j"/>
+            <module name="org.slf4j.ext"/>
+            <module name="org.slf4j.impl"/>
+            <module name="org.apache.log4j"/>
+            <module name="org.jboss.logmanager"/>
+            <module name="jcl-over-slf4j"/>
+            <module name="com.fasterxml.jackson.module.afterburner" />
+            <module name="com.fasterxml.jackson.databind" />
+        </exclusions>
+    </deployment>
+</jboss-deployment-structure>
