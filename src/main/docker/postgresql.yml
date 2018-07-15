@@ -1,0 +1,11 @@
+version: '2'
+services:
+    chatz-postgresql:
+        image: postgres:10.4
+        # volumes:
+        #     - ~/volumes/jhipster/Chatz/postgresql/:/var/lib/postgresql/data/
+        environment:
+            - POSTGRES_USER=Chatz
+            - POSTGRES_PASSWORD=
+        ports:
+            - 5432:5432
