@@ -1,10 +1,9 @@
 package io.github.jhipster.application;
 
+import io.github.jhipster.application.config.APIProperties;
 import io.github.jhipster.application.config.ApplicationProperties;
 import io.github.jhipster.application.config.DefaultProfileUtil;
-
 import io.github.jhipster.config.JHipsterConstants;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -19,12 +18,13 @@ import java.util.Arrays;
 import java.util.Collection;
 
 @SpringBootApplication
-@EnableConfigurationProperties({LiquibaseProperties.class, ApplicationProperties.class})
+@EnableConfigurationProperties({ LiquibaseProperties.class, ApplicationProperties.class, APIProperties.class})
 public class ChatzApp {
 
     private static final Logger log = LoggerFactory.getLogger(ChatzApp.class);
 
     private final Environment env;
+
 
     public ChatzApp(Environment env) {
         this.env = env;

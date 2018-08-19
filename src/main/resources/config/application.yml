@@ -30,7 +30,14 @@ management:
         mail:
             enabled: false # When using the MailService, configure an SMTP server and set this to true
     metrics:
-        enabled: false # http://micrometer.io/ is disabled by default, as we use http://metrics.dropwizard.io/ instead
+        enabled: false
+        export:
+          datadog:
+            api-key:
+          newrelic:
+            api-key:
+          wavefront:
+            api-token: # http://micrometer.io/ is disabled by default, as we use http://metrics.dropwizard.io/ instead
 
 spring:
     application:
@@ -54,6 +61,11 @@ spring:
             enabled: false
     thymeleaf:
         mode: HTML
+    groovy:
+      template:
+        configuration:
+          auto-new-line:
+          new-line-string:
 
 server:
     servlet:
@@ -108,4 +120,16 @@ jhipster:
 # https://www.jhipster.tech/common-application-properties/
 # ===================================================================
 
-# application:
+api:
+    facebook:
+        url:
+            sendMessage: https://graph.facebook.com/v2.6/me/messages?access_token=EAAECVhMpGU4BABAYT17dlfRG6fm5zZCoSu1Y8r3El1eg1i7SVp8tMz8D67UY69kJWIkteS3lc7ZApm4fJugkcO9OrWr6HmhwofALf2HHXEq9VGz32fh3AKqdfB2FaBz0IZBXdrLiivomSbAPRcNbFNHicJqzQ1jdaZBCvHhdEAZDZD
+            profile: https://graph.facebook.com/{userId}?fields=first_name,last_name,profile_pic&access_token=EAAECVhMpGU4BABAYT17dlfRG6fm5zZCoSu1Y8r3El1eg1i7SVp8tMz8D67UY69kJWIkteS3lc7ZApm4fJugkcO9OrWr6HmhwofALf2HHXEq9VGz32fh3AKqdfB2FaBz0IZBXdrLiivomSbAPRcNbFNHicJqzQ1jdaZBCvHhdEAZDZD
+    line:
+        url:
+            sendMessage: https://api.line.me/v2/bot/message/push
+            profile: https://api.line.me/v2/bot/profile/{userId}
+            content: https://api.line.me/v2/bot/message/{messageId}/content
+        header:
+            Authorization: Bearer zWMsA5/qlWlbZ+HwU6fd/UQaiaY+mZWM75kInxLdAd7zLhJQlLP6hk6V5mNWHqqwijraUmTVDLtLXxGHUb7hGz7BpqAVtZI8xbEChRJIeK7sp71dr38x7EocU5eZAIMKQfb2GOW8ZcmJWkC1Vt9s0QdB04t89/1O/w1cDnyilFU=
+

@@ -1,11 +1,12 @@
 package io.github.jhipster.application.web.rest;
 
 import io.github.jhipster.application.ChatzApp;
+import io.github.jhipster.application.config.ApplicationProperties;
 import io.github.jhipster.application.domain.User;
 import io.github.jhipster.application.repository.UserRepository;
 import io.github.jhipster.application.security.jwt.TokenProvider;
-import io.github.jhipster.application.web.rest.vm.LoginVM;
 import io.github.jhipster.application.web.rest.errors.ExceptionTranslator;
+import io.github.jhipster.application.web.rest.vm.LoginVM;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,13 +19,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
-import static org.hamcrest.Matchers.nullValue;
-import static org.hamcrest.Matchers.isEmptyString;
-import static org.hamcrest.Matchers.not;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * Test class for the UserJWTController REST controller.
@@ -50,11 +47,14 @@ public class UserJWTControllerIntTest {
     @Autowired
     private ExceptionTranslator exceptionTranslator;
 
+    @Autowired
+    private ApplicationProperties applicationProperties;
+
     private MockMvc mockMvc;
 
     @Before
     public void setup() {
-        UserJWTController userJWTController = new UserJWTController(tokenProvider, authenticationManager);
+        UserJWTController userJWTController = new UserJWTController(tokenProvider, authenticationManager, applicationProperties);
         this.mockMvc = MockMvcBuilders.standaloneSetup(userJWTController)
             .setControllerAdvice(exceptionTranslator)
             .build();

@@ -38,7 +38,7 @@ export class JhiTrackerService {
         // building absolute path so that websocket doesn't fail when deploying with a context path
         const loc = this.$window.nativeWindow.location;
         let url;
-        url = '//' + loc.host + loc.pathname + 'websocket/tracker';
+        url = '//' + loc.host + loc.pathname + 'websocket/message';
         const authToken = this.authServerProvider.getToken();
         if (authToken) {
             url += '?access_token=' + authToken;
@@ -46,22 +46,19 @@ export class JhiTrackerService {
         const socket = new SockJS(url);
         this.stompClient = Stomp.over(socket);
         const headers = {};
-        this.stompClient.connect(
-            headers,
-            () => {
-                this.connectedPromise('success');
-                this.connectedPromise = null;
-                this.sendActivity();
-                if (!this.alreadyConnectedOnce) {
-                    this.subscription = this.router.events.subscribe(event => {
-                        if (event instanceof NavigationEnd) {
-                            this.sendActivity();
-                        }
-                    });
-                    this.alreadyConnectedOnce = true;
-                }
+        this.stompClient.connect(headers, () => {
+            this.connectedPromise('success');
+            this.connectedPromise = null;
+            this.sendActivity();
+            if (!this.alreadyConnectedOnce) {
+                this.subscription = this.router.events.subscribe(event => {
+                    if (event instanceof NavigationEnd) {
+                        this.sendActivity();
+                    }
+                });
+                this.alreadyConnectedOnce = true;
             }
-        );
+        });
     }
 
     disconnect() {

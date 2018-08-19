@@ -25,6 +25,7 @@
         "genDir": "target/aot",
         "skipMetadataEmit" : true,
         "fullTemplateTypeCheck": true,
-        "preserveWhitespaces": true
+        "preserveWhitespaces": true,
+        "annotationsAs": "decorators"
     }
 }

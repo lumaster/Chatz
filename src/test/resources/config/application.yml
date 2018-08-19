@@ -52,7 +52,7 @@ spring:
             enabled: false
     thymeleaf:
         mode: HTML
-        
+
 
 server:
     port: 10344
@@ -105,3 +105,14 @@ jhipster:
 # ===================================================================
 
 # application:
+api:
+    facebook:
+        url:
+            sendMessage: https://graph.facebook.com/v2.6/me/messages?access_token=EAAECVhMpGU4BAEPVeHiPVXx9Iix9a9ME2WgtafKJwCyeYBQzE5IDs1ShYKM1zIfQu1qWHOkIeMEF3UHgkZC2zfSgJVO0hxtq1HQqHoYHAggL3bfqv6bEOZBTzL6ZBHC7kXUF6PUaCuKZC4DBrx2M202uorwIAQd9ZCnQZBmpazXQZDZD
+    line:
+        url:
+            sendMessage: https://api.line.me/v2/bot/message/push
+            profile: https://api.line.me/v2/bot/message/push/v2/bot/profile/{userId}
+        header:
+            Authorization: Bearer zWMsA5/qlWlbZ+HwU6fd/UQaiaY+mZWM75kInxLdAd7zLhJQlLP6hk6V5mNWHqqwijraUmTVDLtLXxGHUb7hGz7BpqAVtZI8xbEChRJIeK7sp71dr38x7EocU5eZAIMKQfb2GOW8ZcmJWkC1Vt9s0QdB04t89/1O/w1cDnyilFU=
+

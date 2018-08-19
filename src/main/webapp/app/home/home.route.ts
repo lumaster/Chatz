@@ -1,12 +1,14 @@
 import { Route } from '@angular/router';
 
 import { HomeComponent } from './';
+import { UserRouteAccessService } from 'app/core';
 
 export const HOME_ROUTE: Route = {
-    path: '',
+    path: 'home',
     component: HomeComponent,
     data: {
-        authorities: [],
-        pageTitle: 'Welcome, Java Hipster!'
-    }
+        authorities: ['ROLE_ADMIN'],
+        pageTitle: 'Welcome to Shop Chat'
+    },
+    canActivate: [UserRouteAccessService]
 };

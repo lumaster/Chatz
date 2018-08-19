@@ -45,9 +45,10 @@ export class UserRouteAccessService implements CanActivate {
                 this.stateStorageService.storeUrl(url);
                 this.router.navigate(['accessdenied']).then(() => {
                     // only show the login dialog, if the user hasn't logged in yet
-                    if (!account) {
-                        this.loginModalService.open();
-                    }
+                    // if (!account) {
+                    //     // this.router.navigate(['/']);
+                    //     // this.loginModalService.open();
+                    // }
                 });
                 return false;
             })

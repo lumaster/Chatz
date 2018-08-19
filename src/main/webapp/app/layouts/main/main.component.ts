@@ -8,10 +8,13 @@ import { Title } from '@angular/platform-browser';
     templateUrl: './main.component.html'
 })
 export class JhiMainComponent implements OnInit {
+    showHeaderAndFooter = true;
+
     constructor(private titleService: Title, private router: Router) {}
 
     private getPageTitle(routeSnapshot: ActivatedRouteSnapshot) {
-        let title: string = routeSnapshot.data && routeSnapshot.data['pageTitle'] ? routeSnapshot.data['pageTitle'] : 'chatzApp';
+        let title: string =
+            routeSnapshot.data && routeSnapshot.data['pageTitle'] ? routeSnapshot.data['pageTitle'] : 'Shop Chat - Chatting Soulution';
         if (routeSnapshot.firstChild) {
             title = this.getPageTitle(routeSnapshot.firstChild) || title;
         }
@@ -24,5 +27,9 @@ export class JhiMainComponent implements OnInit {
                 this.titleService.setTitle(this.getPageTitle(this.router.routerState.snapshot.root));
             }
         });
+    }
+
+    public setShowHeaderAndFooter(showHeaderAndFooter) {
+        this.showHeaderAndFooter = showHeaderAndFooter;
     }
 }

@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 
+import { LoginComponent } from 'app/login/login.component';
 import { ErrorComponent } from './error.component';
 
 export const errorRoute: Routes = [
@@ -8,15 +9,15 @@ export const errorRoute: Routes = [
         component: ErrorComponent,
         data: {
             authorities: [],
-            pageTitle: 'Chatz'
+            pageTitle: 'Shop Chat - Error'
         }
     },
     {
         path: 'accessdenied',
-        component: ErrorComponent,
+        component: LoginComponent,
         data: {
             authorities: [],
-            pageTitle: 'Chatz',
+            pageTitle: 'Shop Chat - Please Login',
             error403: true
         }
     }

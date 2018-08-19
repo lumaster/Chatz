@@ -1,41 +1,116 @@
-<div class="row">
-    <div class="col-md-3">
-        <span class="hipster img-fluid rounded"></span>
-    </div>
-    <div class="col-md-9">
-        <h1 class="display-4">Welcome, Java Hipster!</h1>
-        <p class="lead">This is your homepage</p>
-
-        <div [ngSwitch]="isAuthenticated()">
-            <div class="alert alert-success" *ngSwitchCase="true">
-                <span *ngIf="account"
-                   > You are logged in as user "{{account.login}}". </span>
+<div class="page">
+    <!-- Message Sidebar -->
+    <div class="page-aside">
+        <div class="page-aside-switch">
+            <i class="icon md-chevron-left" aria-hidden="true"></i>
+            <i class="icon md-chevron-right" aria-hidden="true"></i>
+        </div>
+        <div class="page-aside-inner">
+            <div class="input-search">
+                <button class="input-search-btn" type="submit">
+                    <i class="icon md-search" aria-hidden="true"></i>
+                </button>
+                <form>
+                    <input class="form-control" type="text" placeholder="Search Messages" name="">
+                </form>
             </div>
+            <div class="app-message-list page-aside-scroll">
+                <div data-role="container">
+                    <div data-role="content">
+                        <ul id="conversation" class="list-group">
 
-            <div class="alert alert-warning" *ngSwitchCase="false">
-                <span>If you want to </span>
-                <a class="alert-link" (click)="login()">sign in</a><span>, you can try the default accounts:<br/>- Administrator (login="admin" and password="admin") <br/>- User (login="user" and password="user").</span>
-            </div>
-            <div class="alert alert-warning" *ngSwitchCase="false">
-                <span>You don't have an account yet?</span>&nbsp;
-                <a class="alert-link" routerLink="register">Register a new account</a>
+                            <!-- start conversation  -->
+                            <li *ngFor="let customer of customers$ | sortByDateDesc: 'lastMessageDateTime'"
+                                class="messageBoxList list-group-item" (click)="showMessageDetails(customer)"
+                                [class.active]="activeCustomer != null && activeCustomer.socialId != null && activeCustomer.socialId == customer.socialId">
+                                <div class="media">
+                                    <div class="pr-20">
+                                        <a class="avatar" (click)="showMessageDetails(customer)">
+                                            <div class="ratio img-responsive img-circle"
+                                                 [ngStyle]="{'background-image': 'url(' + customer.imageUrl + ')'}"></div>
+                                            <span class="md-facebook-box" *ngIf="customer.channel == 'FACEBOOK'"></span>
+                                            <span class="icon-line" *ngIf="customer.channel == 'LINE'"></span>
+                                        </a>
+                                    </div>
+                                    <div class="media-body">
+                                        <h5 class="nameMessageBomessageHistory$ mt-0">{{ customer.socialName }}</h5>
+                                        <span class="media-time">{{ customer.lastMessageDateTime | amTimeAgo }}</span>
+                                    </div>
+                                    <div class="pl-20">
+                                        <!--<span class="badge badge-pill badge-danger">3</span>-->
+                                    </div>
+                                </div>
+                            </li>
+                            <!-- end conversation  -->
+
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <p>
-            If you have any question on JHipster:
-        </p>
-
-        <ul>
-            <li><a href="https://www.jhipster.tech/" target="_blank" rel="noopener">JHipster homepage</a></li>
-            <li><a href="http://stackoverflow.com/tags/jhipster/info" target="_blank" rel="noopener">JHipster on Stack Overflow</a></li>
-            <li><a href="https://github.com/jhipster/generator-jhipster/issues?state=open" target="_blank" rel="noopener">JHipster bug tracker</a></li>
-            <li><a href="https://gitter.im/jhipster/generator-jhipster" target="_blank" rel="noopener">JHipster public chat room</a></li>
-            <li><a href="https://twitter.com/java_hipster" target="_blank" rel="noopener">follow @java_hipster on Twitter</a></li>
-        </ul>
-
-        <p>
-            <span>If you like JHipster, don't forget to give us a star on</span> <a href="https://github.com/jhipster/generator-jhipster" target="_blank" rel="noopener">GitHub</a>!
-        </p>
     </div>
+    <!-- End Message Sidebar -->
+    <div class="page-main">
+        <!-- Chat Box -->
+        <div #appMessageChat class="app-message-chats">
+            <!--<button type="button" id="historyBtn" class="btn btn-round btn-default btn-flat primary-500">History-->
+            <!--Messages-->
+            <!--</button>-->
+            <div class="chats"
+                 *ngFor="let message of messageHistory$.messageList | sortByDate: 'createDate'; let last = last"
+                 [class.chat-left]="message.status=='IN'">
+                <div class="chat">
+                    <div class="chat-avatar" style="width: 45px; height: 45px">
+                        <div *ngIf="message.status=='IN'" class="ratio img-responsive img-circle"
+                             [ngStyle]="{'background-image': 'url(' + messageHistory$.customer.imageUrl + ')'}"></div>
+                        <div *ngIf="message.status != 'IN'" class="ratio img-responsive img-circle"
+                             [ngStyle]="{'background-image': 'url(content/images/my-profile.png)'}"></div>
+                    </div>
+                    <div class="chat-body">
+                        <div class="chat-content">
+                            <p *ngIf="message.customer.channel =='LINE' && message.type == 'TEXT'">
+                                {{message.message}}
+                            </p>
+                            <p *ngIf="message.customer.channel =='LINE' && message.type == 'IMAGE'">
+                                <img src="data:image/png;base64, {{message.content | byteArrayToString}}" style="width: 250px;">
+                            </p>
+                            <p *ngIf="message.customer.channel =='FACEBOOK' && message.type == 'TEXT'">
+                                {{message.message}}
+                            </p>
+                            <p *ngIf="message.customer.channel =='FACEBOOK' && message.type == 'IMAGE'">
+                                <a href="{{message.content | byteArrayToString}}"><img
+                                    src="{{message.content | byteArrayToString}}" style="width: 250px;"></a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <span *ngIf="last">{{ngForMessageCallback()}}</span>
+            </div>
+        </div>
+        <!-- End Chat Box -->
+        <!-- Message Input-->
+        <form class="app-message-input" (ngSubmit)="sendMessage()">
+            <div class="input-group form-material">
+          <span class="input-group-btn">
+              <input type="file" ng2FileSelect [uploader]="uploader"
+                     accept="image/*" #uploadImageFile style="display: none"/>
+              <a (click)="onUploadImageClick()" href="#"
+                 class="btn btn-pure btn-default icon md-camera waves-effect waves-classic"></a>
+          </span>
+                <input [(ngModel)]="messageText" name="messageText" class="form-control" type="text"
+                       placeholder="Type message here ..." autocomplete="off">
+                <span class="input-group-btn">
+            <button (click)="sendMessage()" type="button"
+                    class="btn btn-pure btn-default icon md-mail-send waves-effect waves-classic"></button>
+          </span>
+            </div>
+        </form>
+        <!-- End Message Input-->
+    </div>
+</div>
+
+<div class="spinner" *ngIf="displayLoading">
+    <div class="bounce1"></div>
+    <div class="bounce2"></div>
+    <div class="bounce3"></div>
 </div>

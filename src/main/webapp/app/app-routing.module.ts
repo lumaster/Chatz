@@ -1,9 +1,25 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { errorRoute, navbarRoute } from './layouts';
-import { DEBUG_INFO_ENABLED } from 'app/app.constants';
+import { HomeComponent } from 'app/home';
+import { UserRouteAccessService } from 'app/core';
+import { LoginComponent } from 'app/login/login.component';
 
-const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
+const LAYOUT_ROUTES = [
+    ...errorRoute,
+    {
+        path: 'login',
+        component: LoginComponent
+    },
+    {
+        path: '',
+        component: HomeComponent,
+        data: {
+            authorities: ['ROLE_ADMIN']
+        },
+        canActivate: [UserRouteAccessService]
+    }
+];
 
 @NgModule({
     imports: [
@@ -15,7 +31,7 @@ const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
                     loadChildren: './admin/admin.module#ChatzAdminModule'
                 }
             ],
-            { useHash: true, enableTracing: DEBUG_INFO_ENABLED }
+            { useHash: true }
         )
     ],
     exports: [RouterModule]

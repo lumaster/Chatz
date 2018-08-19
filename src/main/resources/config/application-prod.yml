@@ -16,7 +16,7 @@
 logging:
     level:
         ROOT: INFO
-        io.github.jhipster.application: INFO
+        io.github.jhipster.application: DEBUG
         io.github.jhipster: INFO
 
 spring:
@@ -30,6 +30,11 @@ spring:
         url: jdbc:postgresql://159.65.134.12:5432/chatz
         username: chaow
         password: S3crEtC0de
+        hikari:
+          connection-timeout: 3000
+          minimum-idle: 5
+          maximum-pool-size: 20
+          idle-timeout: 30000
     jpa:
         database-platform: io.github.jhipster.domain.util.FixedPostgreSQL82Dialect
         database: POSTGRESQL
@@ -49,6 +54,10 @@ spring:
         password:
     thymeleaf:
         cache: true
+    jta:
+      bitronix:
+        connectionfactory:
+          automatic-enlisting-enabled:
 
 # ===================================================================
 # To enable SSL, generate a certificate using:

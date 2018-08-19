@@ -4,6 +4,7 @@ export * from './auth/account.service';
 export * from './auth/auth-jwt.service';
 export * from './tracker/tracker.service';
 export * from './tracker/window.service';
+export * from './message/message.service';
 export * from './user/account.model';
 export * from './user/user.model';
 export * from './auth/principal.service';

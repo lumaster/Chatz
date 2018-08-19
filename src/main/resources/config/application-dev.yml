@@ -35,6 +35,11 @@ spring:
         url: jdbc:postgresql://159.65.134.12:5432/chatz
         username: chaow
         password: S3crEtC0de
+        hikari:
+          connection-timeout: 3000
+          minimum-idle: 5
+          maximum-pool-size: 20
+          idle-timeout: 30000
     jpa:
         database-platform: io.github.jhipster.domain.util.FixedPostgreSQL82Dialect
         database: POSTGRESQL
@@ -56,6 +61,10 @@ spring:
         cache-duration: PT1S # 1 second, see the ISO 8601 standard
     thymeleaf:
         cache: false
+    jta:
+      bitronix:
+        connectionfactory:
+          automatic-enlisting-enabled:
 
 # ===================================================================
 # To enable SSL, generate a certificate using:
@@ -131,3 +140,5 @@ jhipster:
 # ===================================================================
 
 # application:
+application:
+    url: https://graph.facebook.com/v2.6/me/messages?access_token=EAAECVhMpGU4BAEPVeHiPVXx9Iix9a9ME2WgtafKJwCyeYBQzE5IDs1ShYKM1zIfQu1qWHOkIeMEF3UHgkZC2zfSgJVO0hxtq1HQqHoYHAggL3bfqv6bEOZBTzL6ZBHC7kXUF6PUaCuKZC4DBrx2M202uorwIAQd9ZCnQZBmpazXQZDZD

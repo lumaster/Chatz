@@ -1,5 +1,6 @@
 package io.github.jhipster.application.web.rest;
 
+import io.github.jhipster.application.config.ApplicationProperties;
 import io.github.jhipster.application.security.jwt.JWTConfigurer;
 import io.github.jhipster.application.security.jwt.TokenProvider;
 import io.github.jhipster.application.web.rest.vm.LoginVM;
@@ -28,10 +29,13 @@ public class UserJWTController {
     private final TokenProvider tokenProvider;
 
     private final AuthenticationManager authenticationManager;
+    
+    private final ApplicationProperties applicationProperties;
 
-    public UserJWTController(TokenProvider tokenProvider, AuthenticationManager authenticationManager) {
+    public UserJWTController(TokenProvider tokenProvider, AuthenticationManager authenticationManager, ApplicationProperties applicationProperties) {
         this.tokenProvider = tokenProvider;
         this.authenticationManager = authenticationManager;
+        this.applicationProperties = applicationProperties;
     }
 
     @PostMapping("/authenticate")
