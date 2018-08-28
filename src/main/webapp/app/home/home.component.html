@@ -2,8 +2,8 @@
     <!-- Message Sidebar -->
     <div class="page-aside">
         <div class="page-aside-switch">
-            <i class="icon md-chevron-left" aria-hidden="true"></i>
-            <i class="icon md-chevron-right" aria-hidden="true"></i>
+            <i #sideBarLeftIcon class="icon md-chevron-left" aria-hidden="true" (click)="triggerSideBar($event)"></i>
+            <i #sideBarRightIcon class="icon md-chevron-right" aria-hidden="true" (click)="triggerSideBar($event)"></i>
         </div>
         <div class="page-aside-inner">
             <div class="input-search">

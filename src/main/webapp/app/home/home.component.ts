@@ -31,9 +31,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
     activeCustomer: any;
     messageText: string;
+    openSideBar: boolean;
 
     @ViewChild('uploadImageFile') uploadImageFile: ElementRef;
     @ViewChild('appMessageChat') appMessageChat: ElementRef;
+
+    @ViewChild('sideBarLeftIcon') sideBarLeftIcon: ElementRef;
+    @ViewChild('sideBarRightIcon') sideBarRightIcon: ElementRef;
 
     // @ViewChild('ngxAutoScroll') ngxAutoScroll: NgxAutoScroll;
 
@@ -50,6 +54,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
         this.credentials = {};
         this.mainComponent.setShowHeaderAndFooter(true);
         this.messageText = '';
+        this.openSideBar = true;
     }
 
     ngForMessageCallback() {
@@ -166,5 +171,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
             },
             error => console.log('There was an error while calling GET URL[' + URL + ']: ', error)
         );
+    }
+
+    triggerSideBar() {
+        this.openSideBar = !this.openSideBar;
     }
 }
